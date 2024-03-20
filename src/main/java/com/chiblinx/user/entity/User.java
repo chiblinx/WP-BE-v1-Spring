@@ -70,6 +70,15 @@ public class User extends BaseEntity implements UserDetails {
 
   private String website;
 
+  @Column(name = "refresh_token", columnDefinition = "text")
+  private String refreshToken;
+
+  @Column
+  private String code;
+
+  @Column(name = "code_expiry")
+  private Long codeExpiry;
+
   @Builder.Default
   @Column(columnDefinition = "boolean default true")
   private Boolean isAccountNonExpired = true;
