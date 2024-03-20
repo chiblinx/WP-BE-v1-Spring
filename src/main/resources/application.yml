@@ -1,0 +1,40 @@
+server:
+  port: ${PORT:4000}
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: Property Market Place
+  datasource:
+    url: ${DATABASE_URL_PROD}
+    username: ${DATABASE_USERNAME_PROD}
+    password: ${DATABASE_PASSWORD_PROD}
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLeftTime: 1800000
+      maximumPoolSize: 10
+  flyway:
+    enabled: true
+    locations: classpath:db/migration,classpath:db/callback
+
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: info, health, env, configProps
+
+mail:
+  host: ${MAIL_SERVER_HOST}
+  port: ${MAIL_SERVER_PORT}
+  username: ${MAIL_SERVER_USERNAME}
+  password: ${MAIL_SERVER_PASSWORD}
+  properties:
+    mail:
+      smtp:
+        auth: ${MAIL_SERVER_USE_AUTH:true}
+        starttls:
+          enable: ${MAIL_SERVER_ENABLE_TLS:true}
