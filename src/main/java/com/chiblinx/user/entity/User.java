@@ -6,13 +6,12 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Index;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -95,15 +94,14 @@ public class User extends BaseEntity implements UserDetails {
   @Column(columnDefinition = "boolean default true")
   private Boolean isEnabled = true;
 
-  @Builder.Default
-  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
-  private Set<UserRole> userRoles = new LinkedHashSet<>();
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+      CascadeType.DETACH}, orphanRemoval = true)
+  @JoinColumn(name = "user_role_id")
+  private UserRole role;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return userRoles.stream().map(r -> new SimpleGrantedAuthority(r.getRoleName().name())).collect(
-        Collectors.toList());
+    return List.of(new SimpleGrantedAuthority(role.getRoleName().name()));
   }
 
   @Override

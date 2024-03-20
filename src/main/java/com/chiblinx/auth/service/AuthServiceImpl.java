@@ -82,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
     userRepository.updateCode(codeHash, System.currentTimeMillis(), user.getEmail());
 
     String msgBody = String.format(
-        "Dear User, Thank you for using the rent management platform "
+        "Dear User, Thank you for using the property market place platform "
             + "This is your verification code: %s expires in five minutes", code);
 
     EmailDetails emailDetails = EmailDetails.builder()

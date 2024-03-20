@@ -36,6 +36,8 @@ public class EmailServiceImpl implements EmailService {
 
       mailSender.send(mailMessage);
 
+      log.info("email sent to address: [{}]", details.getRecipient());
+
     } catch (Exception ex) {
       log.error("error sending email [{}]", ex.getLocalizedMessage());
       throw new RuntimeException(ex);
@@ -60,6 +62,8 @@ public class EmailServiceImpl implements EmailService {
 
       mailSender.send(mimeMessage);
 
+      log.info("email sent to address: [{}]", details.getRecipient());
+
     } catch (Exception ex) {
       log.error("error sending email [{}]", ex.getLocalizedMessage());
       throw new RuntimeException(ex);
@@ -77,6 +81,7 @@ public class EmailServiceImpl implements EmailService {
           .build();
       executor.execute(() -> sendSimpleMail(emailDetails));
     }
+    log.info("email sent to address: [{}]", multipleEmailDetails.getRecipients().toString());
   }
 
   @Override
@@ -91,5 +96,6 @@ public class EmailServiceImpl implements EmailService {
           .build();
       executor.execute(() -> sendMailWithAttachment(emailDetails));
     }
+    log.info("email sent to address: [{}]", multipleEmailDetails.getRecipients().toString());
   }
 }

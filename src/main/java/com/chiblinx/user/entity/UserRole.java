@@ -6,8 +6,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,15 +22,10 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "user_roles")
 public class UserRole extends BaseEntity {
 
-
   @Enumerated(EnumType.STRING)
   private Role roleName;
 
   @Column(columnDefinition = "text")
   private String description;
-
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
 
 }

@@ -1,10 +1,12 @@
 package com.chiblinx.user.repository;
 
 import com.chiblinx.user.entity.User;
+import com.chiblinx.user.entity.UserRole;
+import com.chiblinx.user.usecase.BasicUserInfo;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,7 +26,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
       and (:endDate is null or u.createdAt <= :endDate)
       order by u.createdAt DESC
       """)
-  List<User> findByOrderByCreatedAtDesc(
+  Page<BasicUserInfo> findAllWithFilters(
       @Param("searchTerm") String searchTerm,
       @Param("startDate") LocalDateTime startDate,
       @Param("startDate") LocalDateTime endDate,
@@ -32,17 +34,20 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
   Optional<User> findByEmail(String email);
 
+  @Transactional
   @Modifying
   @Query("update User u set u.lastLogin = :lastLogin, u.refreshToken = :refreshToken where u.email = :email")
   void updateLastLogin(@Param(value = "lastLogin") LocalDateTime lastLogin,
       @Param(value = "refreshToken") String refreshToken, @Param(value = "email") String email);
 
 
+  @Transactional
   @Modifying
   @Query("update User u set u.code = :code, u.codeExpiry = :codeExpiry where u.email = :email")
   void updateCode(@Param("code") String code, @Param("codeExpiry") Long codeExpiry,
       @Param("email") String email);
 
+  @Transactional
   @Modifying
   @Query("update User u set u.refreshToken = :refreshToken where u.email = :email")
   void invalidateRefreshToken(@Param(value = "refreshToken") String refreshToken,
@@ -53,5 +58,9 @@ public interface UserRepository extends JpaRepository<User, UUID> {
   @Query("update User u set u.password = :password where u.id = :id")
   void updatePassword(@Param("password") String password, @Param("id") UUID id);
 
+  @Transactional
+  @Modifying
+  @Query("update User u set u.role = :role where u.id = :id")
+  void updateRoleById(@Param("role") UserRole role, @Param("id") UUID id);
 
 }
