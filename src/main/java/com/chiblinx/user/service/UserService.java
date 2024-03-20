@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
 public interface UserService {
 
 
-  Page<BasicUserInfo> getAllUsers(String searchText, LocalDateTime startDate, LocalDateTime endDate,
+  Page<BasicUserInfo> getAllUsers(String searchTerm, LocalDateTime startDate, LocalDateTime endDate,
       int page, int size);
 
   User getUserByEmail(String email);

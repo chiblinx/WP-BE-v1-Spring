@@ -7,9 +7,9 @@ spring:
   application:
     name: Property Market Place
   datasource:
-    url: ${DATABASE_URL_PROD}
-    username: ${DATABASE_USERNAME_PROD}
-    password: ${DATABASE_PASSWORD_PROD}
+    url: ${DATABASE_URL_LOCAL}
+    username: ${DATABASE_USERNAME_LOCAL}
+    password: ${DATABASE_PASSWORD_LOCAL}
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       connectionTimeout: 30000
@@ -38,3 +38,10 @@ mail:
         auth: ${MAIL_SERVER_USE_AUTH:true}
         starttls:
           enable: ${MAIL_SERVER_ENABLE_TLS:true}
+
+jwt:
+  private-key: ${ACCESS_TOKEN_PRIVATE_KEY_BASE64}
+  public-key: ${ACCESS_TOKEN_PUBLIC_KEY_BASE64}
+
+cors:
+  origin-patterns: ${CORS_ORIGINS}

@@ -37,10 +37,10 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
 
   @Override
-  public Page<BasicUserInfo> getAllUsers(String searchText, LocalDateTime startDate,
+  public Page<BasicUserInfo> getAllUsers(String searchTerm, LocalDateTime startDate,
       LocalDateTime endDate, int page, int size) {
-    final Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt"));
-    return userRepository.findAllWithFilters(searchText, startDate, endDate, pageable);
+    final Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+    return userRepository.findAllWithFilters(searchTerm, startDate, endDate, pageable);
   }
 
   @Override
@@ -217,7 +217,7 @@ public class UserServiceImpl implements UserService {
   }
 
   private UserRole getUserRole(Role roleName) {
-    return userRoleRepository.findByRoleName(roleName)
+    return userRoleRepository.findByRoleName(roleName.name())
         .orElseThrow(
             () -> new NotFoundException(String.format("role with name: %s not found", roleName)));
   }

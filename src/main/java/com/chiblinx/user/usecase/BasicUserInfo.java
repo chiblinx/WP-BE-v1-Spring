@@ -6,4 +6,10 @@ public interface BasicUserInfo extends BasicEntityView {
 
   String getFirstName();
 
+  String getSurname();
+
+  String getMobile();
+
+  String getPhone();
+
 }

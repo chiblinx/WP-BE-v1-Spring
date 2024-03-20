@@ -18,18 +18,18 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
   @Query(""" 
       select u from User u
-      where (:searchTerm is null or upper(u.firstName) like upper(concat('%', :searchText, '%' )))
-      or (:searchTerm is null or upper(u.surname) like upper(concat('%', :searchText, '%' )))
-      or (:searchTerm is null or upper(u.phone) like upper(concat('%', :searchText, '%' )))
-      or (:searchTerm is null or upper(u.mobile) like upper(concat('%', :searchText, '%' )))
-      and (:startDate is null or u.createdAt >= :startDate)
-      and (:endDate is null or u.createdAt <= :endDate)
+      where (:searchTerm is null or upper(u.firstName) like upper(concat('%', cast(:searchTerm as text), '%' )))
+      or (:searchTerm is null or upper(u.surname) like upper(concat('%', cast(:searchTerm as text), '%' )))
+      or (:searchTerm is null or upper(u.phone) like upper(concat('%', cast(:searchTerm as text), '%' )))
+      or (:searchTerm is null or upper(u.mobile) like upper(concat('%', cast(:searchTerm as text), '%' )))
+      and (cast(:startDate as DATE) is null or u.createdAt >= :startDate)
+      and (cast(:endDate as DATE) is null or u.createdAt <= :endDate)
       order by u.createdAt DESC
       """)
   Page<BasicUserInfo> findAllWithFilters(
       @Param("searchTerm") String searchTerm,
       @Param("startDate") LocalDateTime startDate,
-      @Param("startDate") LocalDateTime endDate,
+      @Param("endDate") LocalDateTime endDate,
       Pageable pageable);
 
   Optional<User> findByEmail(String email);

@@ -66,13 +66,13 @@ public class UserController {
       )
   })
   ApiSuccessResponse<Page<BasicUserInfo>> getAllUsers(
-      @RequestParam(name = "searchText", required = false) String searchText,
+      @RequestParam(name = "searchTerm", required = false) String searchTerm,
       @RequestParam(name = "startDate", required = false) @DateTimeFormat LocalDateTime startDate,
       @RequestParam(name = "endDate", required = false) @DateTimeFormat LocalDateTime endDate,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size) {
     return new ApiSuccessResponse<>("all users", HttpStatus.OK,
-        userService.getAllUsers(searchText, startDate, endDate, page, size));
+        userService.getAllUsers(searchTerm, startDate, endDate, page, size));
   }
 
   @GetMapping("/{id}")

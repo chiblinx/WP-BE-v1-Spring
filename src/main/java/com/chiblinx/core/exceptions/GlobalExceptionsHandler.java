@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -52,6 +53,12 @@ public class GlobalExceptionsHandler {
   @ExceptionHandler(ExpiredJwtException.class)
   ResponseEntity<ApiErrorResponse> handleExpiredJwtException(ExpiredJwtException exception) {
     ApiErrorResponse error = new ApiErrorResponse(exception.getMessage(), HttpStatus.UNAUTHORIZED);
+    return new ResponseEntity<>(error, error.getStatus());
+  }
+
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  ResponseEntity<ApiErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException exception) {
+    ApiErrorResponse error = new ApiErrorResponse(exception.getMessage(), HttpStatus.BAD_REQUEST);
     return new ResponseEntity<>(error, error.getStatus());
   }
 

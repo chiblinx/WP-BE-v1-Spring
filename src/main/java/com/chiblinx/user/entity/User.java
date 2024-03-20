@@ -5,11 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -69,6 +71,9 @@ public class User extends BaseEntity implements UserDetails {
 
   private String website;
 
+  @Column
+  private LocalDateTime lastLogin;
+
   @Column(name = "refresh_token", columnDefinition = "text")
   private String refreshToken;
 
@@ -95,7 +100,7 @@ public class User extends BaseEntity implements UserDetails {
   private Boolean isEnabled = true;
 
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
-      CascadeType.DETACH}, orphanRemoval = true)
+      CascadeType.DETACH})
   @JoinColumn(name = "user_role_id")
   private UserRole role;
 

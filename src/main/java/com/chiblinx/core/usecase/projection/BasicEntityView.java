@@ -1,14 +1,14 @@
 package com.chiblinx.core.usecase.projection;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public interface BasicEntityView {
 
   UUID getId();
 
-  Date getCreatedAt();
+  LocalDateTime getCreatedAt();
 
-  Date getUpdatedAt();
+  LocalDateTime getUpdatedAt();
 
 }

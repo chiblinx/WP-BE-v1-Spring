@@ -6,7 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,11 +30,11 @@ public abstract class BaseEntity {
   @Builder.Default
   @CreatedDate
   @Column(columnDefinition = "datetime default current_timestamp")
-  private final Date createdAt = new Date();
+  private final LocalDateTime createdAt = LocalDateTime.now();
   @Builder.Default
   @LastModifiedDate
   @Column(columnDefinition = "datetime default current_timestamp")
-  private final Date updatedAt = new Date();
+  private final LocalDateTime updatedAt = LocalDateTime.now();
   @Id
   @GeneratedValue
   @UuidGenerator(style = UuidGenerator.Style.TIME)

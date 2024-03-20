@@ -45,7 +45,6 @@ public class AuthServiceImpl implements AuthService {
     );
 
     final User user = findUserByEmail(loginRequest.getEmail());
-
     return generateTokens(user);
   }
 

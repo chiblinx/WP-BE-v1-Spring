@@ -40,7 +40,6 @@ public class EmailServiceImpl implements EmailService {
 
     } catch (Exception ex) {
       log.error("error sending email [{}]", ex.getLocalizedMessage());
-      throw new RuntimeException(ex);
     }
   }
 
@@ -66,7 +65,6 @@ public class EmailServiceImpl implements EmailService {
 
     } catch (Exception ex) {
       log.error("error sending email [{}]", ex.getLocalizedMessage());
-      throw new RuntimeException(ex);
     }
   }
 
