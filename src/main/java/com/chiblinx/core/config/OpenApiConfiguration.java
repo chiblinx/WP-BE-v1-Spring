@@ -38,6 +38,7 @@ public class OpenApiConfiguration {
                 .email("lothbroch@gmail.com"))
             .license(new License().name("GNU").url("https://opensource.org/license/mit/"))
         ).servers(List.of(
+            new Server().description("Public Server").url("https://propertymp.onrender.com/api"),
             new Server().description("Local Server").url("http://localhost:4000/api"))
         );
   }

@@ -159,7 +159,7 @@ public class UserController {
   })
   ApiSuccessResponse<User> updateUser(@PathVariable String id,
       @Valid @RequestBody UpdateUserRequest reqData) {
-    return new ApiSuccessResponse<>("user details updated", HttpStatus.CREATED,
+    return new ApiSuccessResponse<>("user details updated", HttpStatus.OK,
         userService.updateUser(id, reqData));
   }
 

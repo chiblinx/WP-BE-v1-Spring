@@ -197,7 +197,7 @@ public class UserServiceImpl implements UserService {
 
     final User updatedUser = userRepository.save(userToUpdate);
 
-    log.info("user with id: [{}] updated successful", id);
+    log.info("user with id: [{}] updated successfully", id);
 
     return updatedUser;
   }
